@@ -12,7 +12,7 @@ exec_prefix=/usr
 # Add a trailing slash so that 'find' can go through this directory if it's a symlink
 DDIR=/var/log/sa/
 SYSCONFIG_DIR=/etc/sysconfig
-YESTERDAY=
+YESTERDAY="--date=yesterday"
 DATE=`date ${YESTERDAY} +%d`
 CURRENTFILE=sa${DATE}
 CURRENTRPT=sar${DATE}
