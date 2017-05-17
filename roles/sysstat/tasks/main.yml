@@ -9,7 +9,7 @@
       group: root
       mode: 0600
       backup: yes
-    register: is_etc_cron.d_sysstat_setting
+    register: is_etc_cron_d_sysstat_setting
 
   - name: update sysstat sysconfig setting
     template:
@@ -36,7 +36,7 @@
   - name: common backup settings
     include: backup.yml
     with_flattened:
-      - "{{ is_etc_cron.d_sysstat_setting|default() }}"
+      - "{{ is_etc_cron_d_sysstat_setting|default() }}"
       - "{{ is_etc_sysconfig_sysstat_setting|default() }}"
       - "{{ is_sa2_setting|default() }}"
     loop_control:
