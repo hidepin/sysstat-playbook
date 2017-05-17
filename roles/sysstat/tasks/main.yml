@@ -1,0 +1,43 @@
+---
+# tasks file for sysstat
+- block:
+  - name: update sysstat cron setting
+    template:
+      src: etc_cron.d_sysstat.j2
+      dest: /etc/cron.d/sysstat
+      owner: root
+      group: root
+      mode: 0600
+      backup: yes
+    register: is_etc_cron.d_sysstat_setting
+
+  - name: update sysstat sysconfig setting
+    template:
+      src: etc_sysconfig_sysstat.j2
+      dest: /etc/sysconfig/sysstat
+      owner: root
+      group: root
+      mode: 0644
+
+      backup: yes
+    register: is_etc_sysconfig_sysstat_setting
+
+  - name: update sa2 setting
+    template:
+      src: sa2.j2
+      dest: /usr/lib64/sa/sa2
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+    register: is_sa2_setting
+
+  always:
+  - name: common backup settings
+    include: backup.yml
+    with_flattened:
+      - "{{ is_etc_cron.d_sysstat_setting|default() }}"
+      - "{{ is_etc_sysconfig_sysstat_setting|default() }}"
+      - "{{ is_sa2_setting|default() }}"
+    loop_control:
+      loop_var: backup_item
