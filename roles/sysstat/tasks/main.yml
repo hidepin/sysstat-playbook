@@ -32,6 +32,16 @@
       backup: yes
     register: is_sa2_setting
 
+  - name: update sos.conf setting
+    template:
+      src: sos.conf.j2
+      dest: /etc/sos.conf
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+    register: is_sos_conf_setting
+
   always:
   - name: common backup settings
     include: backup.yml
@@ -39,5 +49,6 @@
       - "{{ is_etc_cron_d_sysstat_setting|default() }}"
       - "{{ is_etc_sysconfig_sysstat_setting|default() }}"
       - "{{ is_sa2_setting|default() }}"
+      - "{{ is_sos_conf_setting|default() }}"
     loop_control:
       loop_var: backup_item
