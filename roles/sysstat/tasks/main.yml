@@ -28,7 +28,7 @@
       dest: /usr/lib64/sa/sa2
       owner: root
       group: root
-      mode: 0644
+      mode: 0755
       backup: yes
     register: is_sa2_setting
 
